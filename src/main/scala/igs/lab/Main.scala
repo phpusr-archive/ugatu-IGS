@@ -9,7 +9,7 @@ import javafx.scene.paint.Color
 import scala.swing
 import javafx.embed.swing.JFXPanel
 import scala.swing.{FlowPanel, MainFrame, SimpleSwingApplication}
-import javafx.scene.control.{Slider, Button}
+import javafx.scene.control.{Label, Slider, Button}
 import javafx.beans.value.{ObservableValue, ChangeListener}
 import javafx.scene.transform.Rotate
 
@@ -64,28 +64,34 @@ object Main extends SimpleSwingApplication {
     // Слайдеры
     val hBox = new HBox(20)
     vBox.getChildren.add(hBox)
-    val sliderX = createSlider(wireframeModel.getRx)
-    hBox.getChildren.add(sliderX)
-    val sliderY = createSlider(wireframeModel.getRy)
-    hBox.getChildren.add(sliderY)
-    val sliderZ = createSlider(wireframeModel.getRz)
-    hBox.getChildren.add(sliderZ)
+    val sliderBoxX = createSliderBox("X:", wireframeModel.getRx)
+    hBox.getChildren.add(sliderBoxX)
+    val sliderBoxY = createSliderBox("Y:", wireframeModel.getRy)
+    hBox.getChildren.add(sliderBoxY)
+    val sliderBoxZ = createSliderBox("Z:", wireframeModel.getRz)
+    hBox.getChildren.add(sliderBoxZ)
   }
 
-  /** Создание ползунков поворачивания объекта */
-  private def createSlider(rotate: Rotate) = {
+  /** Создание панели с заголовком и ползунком */
+  private def createSliderBox(title: String, rotate: Rotate) = {
+    // Slider
     val minValue = 0
     val maxValue = 360
     val startValue = 0
     val slider = new Slider(minValue, maxValue, startValue)
-
     slider.valueProperty.addListener(new ChangeListener[Number]() {
       override def changed(observableValue: ObservableValue[_ <: Number], oldValue: Number, newValue: Number) {
         rotate.angleProperty.setValue(newValue)
       }
     })
 
-    slider
+    // Label
+    val label = new Label(title)
+
+    // Box
+    val box = new HBox(10)
+    box.getChildren.addAll(label, slider)
+    box
   }
 
   /** Панель с каркасной моделью */
