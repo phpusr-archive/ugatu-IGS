@@ -4,7 +4,6 @@ import javafx.application.{Platform, Application}
 import javafx.stage.Stage
 import javafx.scene.{PerspectiveCamera, Scene, Group}
 import javafx.scene.layout.{HBox, StackPane, VBox}
-import experiment.lab.Cube
 import javafx.scene.paint.Color
 import scala.swing
 import javafx.embed.swing.JFXPanel
@@ -14,6 +13,7 @@ import javafx.beans.value.{ObservableValue, ChangeListener}
 import javafx.scene.transform.Rotate
 import javafx.event.{ActionEvent, EventHandler}
 import javafx.geometry.{Insets, Pos}
+import javafx.scene.shape.Polygon
 
 /**
  * @author phpusr
@@ -22,7 +22,7 @@ import javafx.geometry.{Insets, Pos}
  */
 
 /**
- * TODO
+ * TODO каркасная модель
  */
 object Main extends SimpleSwingApplication {
   // Размеры формы
@@ -58,6 +58,7 @@ object Main extends SimpleSwingApplication {
     scene.setCamera(new PerspectiveCamera)
     jfx.setScene(scene)
 
+    // Каркасная модель
     val wireframeModelPanel = getWireframeModelPanel(ModelWidth, ModelHeight)
     root.getChildren.add(wireframeModelPanel)
 
@@ -66,11 +67,11 @@ object Main extends SimpleSwingApplication {
     root.getChildren.add(slidersBox)
     slidersBox.setAlignment(Pos.CENTER)
 
-    val sliderBoxX = createSliderBox("X:", wireframeModel.getRx)
+    val sliderBoxX = createSliderBox("X:", wireframeModel.rx)
     slidersBox.getChildren.add(sliderBoxX)
-    val sliderBoxY = createSliderBox("Y:", wireframeModel.getRy)
+    val sliderBoxY = createSliderBox("Y:", wireframeModel.ry)
     slidersBox.getChildren.add(sliderBoxY)
-    val sliderBoxZ = createSliderBox("Z:", wireframeModel.getRz)
+    val sliderBoxZ = createSliderBox("Z:", wireframeModel.rz)
     slidersBox.getChildren.add(sliderBoxZ)
 
     // Кнопки
@@ -112,8 +113,8 @@ object Main extends SimpleSwingApplication {
 
   /** Панель с каркасной моделью */
   private def getWireframeModelPanel(width: Int, height: Int) = {
-    wireframeModel.getRx.setAngle(0)
-    wireframeModel.getRy.setAngle(0)
+    wireframeModel.rx.setAngle(0)
+    wireframeModel.ry.setAngle(0)
 
     val stackPane = new StackPane()
     stackPane.setPrefSize(width, height)
