@@ -39,7 +39,7 @@ object Main extends SimpleSwingApplication {
   private val ColorNum = 240
   private val ColorModel = if (false) null else Color.rgb(ColorNum, ColorNum, ColorNum)
   private val ShadeModel = 0.5
-  private val wireframeModel = new Cube(SizeModel, ColorModel, ShadeModel)
+  private val wireframeModel = if (true) new Cube(SizeModel, ColorModel, ShadeModel) else new Ball(50)
   private val jfx = new JFXPanel
   /** Непрозрачность **/
   private val OpaqueModel = true

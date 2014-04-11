@@ -3,7 +3,7 @@ package igs.lab
 import javafx.scene.Group
 import javafx.scene.transform.Rotate
 import javafx.scene.paint.Color
-import javafx.scene.shape.{Rectangle, RectangleBuilder}
+import javafx.scene.shape.{Shape, CircleBuilder, Rectangle, RectangleBuilder}
 import scala.collection.mutable.ListBuffer
 import scala.collection.JavaConversions
 import scala.util.Random
@@ -17,12 +17,7 @@ import scala.util.Random
 /**
  * Куб
  */
-class Cube(size: Double, color: Color, shade: Double) extends Group {
-  // Оси поворота объекта
-  val rx = new Rotate(0,Rotate.X_AXIS)
-  val ry = new Rotate(0,Rotate.Y_AXIS)
-  val rz = new Rotate(0,Rotate.Z_AXIS)
-  getTransforms.addAll(rz, ry, rx)
+class Cube(size: Double, color: Color, shade: Double) extends RotateShape {
 
   /** Кол-во сторон */
   private val sidesNumber = 6
@@ -33,7 +28,7 @@ class Cube(size: Double, color: Color, shade: Double) extends Group {
       yield color.deriveColor(0.0, 1.0, 1 - ((sidesNumber - i).toDouble / 10) * shade, 1.0)
   } else {
     //List(Color.ORANGE, Color.FUCHSIA, Color.GREEN, Color.RED, Color.BLUE, Color.GOLD)
-    for(i <-1 to sidesNumber) yield getRandomColor()
+    for(i <-1 to sidesNumber) yield Util.getRandomColor()
   }
 
   /** Список сторон объекта */
@@ -42,16 +37,10 @@ class Cube(size: Double, color: Color, shade: Double) extends Group {
   // Инициализация объекта
   init()
 
-  /** Генерирует случайны цвет */
-  private def getRandomColor = () => {
-    def randomColorNumber = () => Random.nextInt(256)
-    Color.rgb(randomColorNumber(), randomColorNumber(), randomColorNumber())
-  }
-
   /** Меняет цвета сторон объекта */
   def changeColors() {
     sidesList.foreach { el =>
-      el.setFill(getRandomColor())
+      el.setFill(Util.getRandomColor())
     }
   }
 
