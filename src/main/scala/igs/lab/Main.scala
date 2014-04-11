@@ -35,7 +35,8 @@ object Main extends SimpleSwingApplication {
   private val ModelHeight = 300
 
   /** Каркасная модель поверхности */
-  private val wireframeModel = new Cube(100, Color.RED, 1)
+  private val color = null
+  private val wireframeModel = new Cube(100, color, 1)
   private val jfx = new JFXPanel
 
   /** Создание главной формы */

@@ -6,6 +6,7 @@ import javafx.scene.paint.Color
 import javafx.scene.shape.{Rectangle, RectangleBuilder}
 import scala.collection.mutable.ListBuffer
 import scala.collection.JavaConversions
+import scala.util.Random
 
 /**
  * @author phpusr
@@ -21,60 +22,80 @@ class Cube(size: Double, color: Color, shade: Double) extends Group {
   val ry = new Rotate(0,Rotate.Y_AXIS)
   val rz = new Rotate(0,Rotate.Z_AXIS)
 
+  // Кол-во сторон
+  val sidesNumber = 6
+
+  // Цвета сторон объекта
+  val colors = if (color != null) {
+    for (i <- 1 to sidesNumber)
+      yield color.deriveColor(0.0, 1.0, 1 - ((sidesNumber - i).toDouble / 10) * shade, 1.0)
+  } else {
+    //List(Color.ORANGE, Color.FUCHSIA, Color.GREEN, Color.RED, Color.BLUE, Color.GOLD)
+    def randomColorNumber = () => Random.nextInt(256)
+    for(i <-1 to sidesNumber)
+      yield Color.rgb(randomColorNumber(), randomColorNumber(), randomColorNumber())
+  }
+
   // back face
+  var index = 0
   val r1 = RectangleBuilder.create()
   r1.width(size)
   r1.height(size)
-  r1.fill(color.deriveColor(0.0, 1.0, (1 - 0.5*shade), 1.0))
+  r1.fill(colors(index))
   r1.translateX(-0.5*size)
   r1.translateY(-0.5*size)
   r1.translateZ(0.5*size)
 
   // bottom face
+  index += 1
   val r2 = RectangleBuilder.create()
   r2.width(size)
   r2.height(size)
-  r2.fill(color.deriveColor(0.0, 1.0, (1 - 0.4*shade), 1.0))
+  r2.fill(colors(index))
   r2.translateX(-0.5*size)
   r2.translateY(0)
   r2.rotationAxis(Rotate.X_AXIS)
   r2.rotate(90)
 
   // right face
+  index += 1
   val r3 = RectangleBuilder.create()
   r3.width(size)
   r3.height(size)
-  r3.fill(color.deriveColor(0.0, 1.0, (1 - 0.3*shade), 1.0))
+  r3.fill(colors(index))
   r3.translateX(-1*size)
   r3.translateY(-0.5*size)
   r3.rotationAxis(Rotate.Y_AXIS)
   r3.rotate(90)
 
   // left face
+  index += 1
   val r4 = RectangleBuilder.create()
   r4.width(size)
   r4.height(size)
-  r4.fill(color.deriveColor(0.0, 1.0, (1 - 0.2*shade), 1.0))
+  r4.fill(colors(index))
   r4.translateX(0)
   r4.translateY(-0.5*size)
   r4.rotationAxis(Rotate.Y_AXIS)
   r4.rotate(90)
 
   // top face
+  index += 1
   val r5 = RectangleBuilder.create()
   r5.width(size)
   r5.height(size)
-  r5.fill(color.deriveColor(0.0, 1.0, (1 - 0.1*shade), 1.0))
+  r5.fill(colors(index))
   r5.translateX(-0.5*size)
   r5.translateY(-1*size)
   r5.rotationAxis(Rotate.X_AXIS)
   r5.rotate(90)
 
   // top face
+  index += 1
   val r6 = RectangleBuilder.create()
   r6.width(size)
   r6.height(size)
-  r6.fill(color)
+  r6.fill(colors(index))
   r6.translateX(-0.5*size)
   r6.translateY(-0.5*size)
   r6.translateZ(-0.5*size)
