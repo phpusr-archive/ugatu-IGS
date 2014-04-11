@@ -14,6 +14,7 @@ import javafx.scene.transform.Rotate
 import javafx.event.{ActionEvent, EventHandler}
 import javafx.geometry.{Insets, Pos}
 import javafx.scene.shape.Polygon
+import java.awt.Dimension
 
 /**
  * @author phpusr
@@ -41,7 +42,7 @@ object Main extends SimpleSwingApplication {
   def top = new MainFrame {
     contents = new FlowPanel {
       peer.add(jfx)
-      jfx.setSize(ModelWidth, ModelHeight)
+      jfx.setPreferredSize(new Dimension(FormWidth, FormHeight))
     }
     centerOnScreen()
   }
@@ -54,7 +55,8 @@ object Main extends SimpleSwingApplication {
   /** Создание Java FX компонентов */
   private def createJavaFxComponents() {
     val root = new VBox(20)
-    val scene = new Scene(root, FormWidth, FormHeight)
+    val opaque = true // Непрозрачный
+    val scene = new Scene(root, ModelWidth, ModelHeight, opaque)
     scene.setCamera(new PerspectiveCamera)
     jfx.setScene(scene)
 
@@ -96,9 +98,10 @@ object Main extends SimpleSwingApplication {
     val maxValue = 360
     val startValue = 0
     val slider = new Slider(minValue, maxValue, startValue)
+    //  поворот объекта по оси при изменении положения ползунка
     slider.valueProperty.addListener(new ChangeListener[Number]() {
       override def changed(observableValue: ObservableValue[_ <: Number], oldValue: Number, newValue: Number) {
-        rotate.angleProperty.setValue(newValue)
+        rotate.setAngle(newValue.doubleValue)
       }
     })
 
@@ -113,8 +116,10 @@ object Main extends SimpleSwingApplication {
 
   /** Панель с каркасной моделью */
   private def getWireframeModelPanel(width: Int, height: Int) = {
+    // Установка повортов по всем осям в 0
     wireframeModel.rx.setAngle(0)
     wireframeModel.ry.setAngle(0)
+    wireframeModel.rz.setAngle(0)
 
     val stackPane = new StackPane()
     stackPane.setPrefSize(width, height)
