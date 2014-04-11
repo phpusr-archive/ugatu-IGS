@@ -36,8 +36,9 @@ object Main extends SimpleSwingApplication {
 
   /** Каркасная модель поверхности */
   private val SizeModel = 100
-  private val ColorModel = Color.WHITE
-  private val ShadeModel = 1
+  private val ColorNum = 240
+  private val ColorModel = if (false) null else Color.rgb(ColorNum, ColorNum, ColorNum)
+  private val ShadeModel = 0.5
   private val wireframeModel = new Cube(SizeModel, ColorModel, ShadeModel)
   private val jfx = new JFXPanel
   /** Непрозрачность **/
