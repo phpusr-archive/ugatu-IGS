@@ -1,4 +1,4 @@
-package igs.lab
+package igs.lab.shape
 
 import javafx.scene.transform.Rotate
 import javafx.scene.Group

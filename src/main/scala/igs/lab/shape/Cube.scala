@@ -1,12 +1,11 @@
-package igs.lab
+package igs.lab.shape
 
-import javafx.scene.Group
 import javafx.scene.transform.Rotate
 import javafx.scene.paint.Color
-import javafx.scene.shape.{Shape, CircleBuilder, Rectangle, RectangleBuilder}
+import javafx.scene.shape.{Rectangle, RectangleBuilder}
 import scala.collection.mutable.ListBuffer
 import scala.collection.JavaConversions
-import scala.util.Random
+import igs.lab.Util
 
 /**
  * @author phpusr

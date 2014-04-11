@@ -1,11 +1,9 @@
 package igs.lab
 
-import javafx.application.{Platform, Application}
-import javafx.stage.Stage
-import javafx.scene.{PerspectiveCamera, Scene, Group}
+import javafx.application.Platform
+import javafx.scene.{PerspectiveCamera, Scene}
 import javafx.scene.layout.{HBox, StackPane, VBox}
 import javafx.scene.paint.Color
-import scala.swing
 import javafx.embed.swing.JFXPanel
 import scala.swing.{FlowPanel, MainFrame, SimpleSwingApplication}
 import javafx.scene.control.{Label, Slider, Button}
@@ -13,8 +11,8 @@ import javafx.beans.value.{ObservableValue, ChangeListener}
 import javafx.scene.transform.Rotate
 import javafx.event.{ActionEvent, EventHandler}
 import javafx.geometry.{Insets, Pos}
-import javafx.scene.shape.Polygon
 import java.awt.Dimension
+import igs.lab.shape.{Cube, Ball}
 
 /**
  * @author phpusr

@@ -1,8 +1,9 @@
-package igs.lab
+package igs.lab.shape
 
 import javafx.scene.shape.{Circle, CircleBuilder}
 import javafx.scene.transform.Rotate
 import scala.collection.mutable.ListBuffer
+import igs.lab.Util
 
 /**
  * @author phpusr
