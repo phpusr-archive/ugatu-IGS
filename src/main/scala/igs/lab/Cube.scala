@@ -25,15 +25,19 @@ class Cube(size: Double, color: Color, shade: Double) extends Group {
   // Кол-во сторон
   val sidesNumber = 6
 
+  /** Генерирует случайны цвет */
+  def getRandomColor = () => {
+    def randomColorNumber = () => Random.nextInt(256)
+    Color.rgb(randomColorNumber(), randomColorNumber(), randomColorNumber())
+  }
+
   // Цвета сторон объекта
   val colors = if (color != null) {
     for (i <- 1 to sidesNumber)
       yield color.deriveColor(0.0, 1.0, 1 - ((sidesNumber - i).toDouble / 10) * shade, 1.0)
   } else {
     //List(Color.ORANGE, Color.FUCHSIA, Color.GREEN, Color.RED, Color.BLUE, Color.GOLD)
-    def randomColorNumber = () => Random.nextInt(256)
-    for(i <-1 to sidesNumber)
-      yield Color.rgb(randomColorNumber(), randomColorNumber(), randomColorNumber())
+    for(i <-1 to sidesNumber) yield getRandomColor()
   }
 
   // back face
@@ -101,10 +105,22 @@ class Cube(size: Double, color: Color, shade: Double) extends Group {
   r6.translateZ(-0.5*size)
 
   // Convert scala list => java list
-  val rectangleBuilders = ListBuffer(r1, r2, r3, r4, r5, r6).map(_.build())
-  val rectagles: java.util.List[Rectangle] = JavaConversions.bufferAsJavaList(rectangleBuilders)
+  val rectangleBuilders = ListBuffer(r1, r2, r3, r4, r5, r6)
+  val rectagleList = rectangleBuilders.map(_.build())
+  val rectagles: java.util.List[Rectangle] = {
+    JavaConversions.bufferAsJavaList(rectagleList)
+  }
 
   getTransforms.addAll(rz, ry, rx)
   getChildren.addAll(rectagles)
+
+  /** Меняет цвета сторон объекта */
+  def changeColors() {
+    r1.build().setFill(getRandomColor())
+
+    rectagleList.foreach { el =>
+      el.setFill(getRandomColor())
+    }
+  }
 
 }
