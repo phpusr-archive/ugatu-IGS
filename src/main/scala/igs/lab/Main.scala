@@ -3,13 +3,15 @@ package igs.lab
 import javafx.application.{Platform, Application}
 import javafx.stage.Stage
 import javafx.scene.{PerspectiveCamera, Scene, Group}
-import javafx.scene.layout.{StackPane, VBox}
+import javafx.scene.layout.{HBox, StackPane, VBox}
 import experiment.lab.Cube
 import javafx.scene.paint.Color
 import scala.swing
 import javafx.embed.swing.JFXPanel
 import scala.swing.{FlowPanel, MainFrame, SimpleSwingApplication}
-import javafx.scene.control.Button
+import javafx.scene.control.{Slider, Button}
+import javafx.beans.value.{ObservableValue, ChangeListener}
+import javafx.scene.transform.Rotate
 
 /**
  * @author phpusr
@@ -58,6 +60,32 @@ object Main extends SimpleSwingApplication {
 
     val wireframeModelPanel = getWireframeModelPanel(ModelWidth, ModelHeight)
     vBox.getChildren.add(wireframeModelPanel)
+
+    // Слайдеры
+    val hBox = new HBox(20)
+    vBox.getChildren.add(hBox)
+    val sliderX = createSlider(wireframeModel.getRx)
+    hBox.getChildren.add(sliderX)
+    val sliderY = createSlider(wireframeModel.getRy)
+    hBox.getChildren.add(sliderY)
+    val sliderZ = createSlider(wireframeModel.getRz)
+    hBox.getChildren.add(sliderZ)
+  }
+
+  /** Создание ползунков поворачивания объекта */
+  private def createSlider(rotate: Rotate) = {
+    val minValue = 0
+    val maxValue = 360
+    val startValue = 0
+    val slider = new Slider(minValue, maxValue, startValue)
+
+    slider.valueProperty.addListener(new ChangeListener[Number]() {
+      override def changed(observableValue: ObservableValue[_ <: Number], oldValue: Number, newValue: Number) {
+        rotate.angleProperty.setValue(newValue)
+      }
+    })
+
+    slider
   }
 
   /** Панель с каркасной моделью */
