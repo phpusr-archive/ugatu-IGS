@@ -12,6 +12,8 @@ import scala.swing.{FlowPanel, MainFrame, SimpleSwingApplication}
 import javafx.scene.control.{Label, Slider, Button}
 import javafx.beans.value.{ObservableValue, ChangeListener}
 import javafx.scene.transform.Rotate
+import javafx.event.{ActionEvent, EventHandler}
+import javafx.geometry.{Insets, Pos}
 
 /**
  * @author phpusr
@@ -41,6 +43,7 @@ object Main extends SimpleSwingApplication {
       peer.add(jfx)
       jfx.setSize(ModelWidth, ModelHeight)
     }
+    centerOnScreen()
   }
 
   /** Отложенный запуск */
@@ -50,26 +53,39 @@ object Main extends SimpleSwingApplication {
 
   /** Создание Java FX компонентов */
   private def createJavaFxComponents() {
-    val root = new Group
+    val root = new VBox(20)
     val scene = new Scene(root, FormWidth, FormHeight)
     scene.setCamera(new PerspectiveCamera)
     jfx.setScene(scene)
 
-    val vBox = new VBox(20)
-    root.getChildren.add(vBox)
-
     val wireframeModelPanel = getWireframeModelPanel(ModelWidth, ModelHeight)
-    vBox.getChildren.add(wireframeModelPanel)
+    root.getChildren.add(wireframeModelPanel)
 
     // Слайдеры
-    val hBox = new HBox(20)
-    vBox.getChildren.add(hBox)
+    val slidersBox = new HBox(20)
+    root.getChildren.add(slidersBox)
+    slidersBox.setAlignment(Pos.CENTER)
+
     val sliderBoxX = createSliderBox("X:", wireframeModel.getRx)
-    hBox.getChildren.add(sliderBoxX)
+    slidersBox.getChildren.add(sliderBoxX)
     val sliderBoxY = createSliderBox("Y:", wireframeModel.getRy)
-    hBox.getChildren.add(sliderBoxY)
+    slidersBox.getChildren.add(sliderBoxY)
     val sliderBoxZ = createSliderBox("Z:", wireframeModel.getRz)
-    hBox.getChildren.add(sliderBoxZ)
+    slidersBox.getChildren.add(sliderBoxZ)
+
+    // Кнопки
+    val buttosnBox = new HBox(20)
+    root.getChildren.add(buttosnBox)
+    buttosnBox.setAlignment(Pos.CENTER_RIGHT)
+    buttosnBox.setPadding(new Insets(20, 20, 20, 20))
+
+    val exitButton = new Button("Exit")
+    buttosnBox.getChildren.add(exitButton)
+    exitButton.setPrefSize(150, 40)
+    exitButton.setOnAction(new EventHandler[ActionEvent] {
+      override def handle(event: ActionEvent) = System.exit(0)
+    })
+
   }
 
   /** Создание панели с заголовком и ползунком */
