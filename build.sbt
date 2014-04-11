@@ -6,10 +6,9 @@ val runClass = "igs.lab.Main"
 
 scalaVersion := "2.10.3"
 
-unmanagedJars in Compile += file("C:/Program Files/Java/jre7/lib/jfxrt.jar")
+unmanagedJars in Compile += file(System.getenv("JAVA_HOME") + "/jre/lib/jfxrt.jar")
 
 libraryDependencies ++= Seq(
-  //"org.rapidpm.modul" % "javafx-commons" % "1.2",
   "org.scala-lang" % "scala-swing" % scalaVersion.value,
   "org.scalatest" % "scalatest_2.10" % "2.1.3" % "test",
   "org.pegdown" % "pegdown" % "1.4.2" % "test"
