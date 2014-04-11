@@ -35,9 +35,13 @@ object Main extends SimpleSwingApplication {
   private val ModelHeight = 300
 
   /** Каркасная модель поверхности */
-  private val color = null
-  private val wireframeModel = new Cube(100, color, 1)
+  private val SizeModel = 100
+  private val ColorModel = Color.WHITE
+  private val ShadeModel = 1
+  private val wireframeModel = new Cube(SizeModel, ColorModel, ShadeModel)
   private val jfx = new JFXPanel
+  /** Непрозрачность **/
+  private val OpaqueModel = true
 
   /** Создание главной формы */
   def top = new MainFrame {
@@ -48,7 +52,7 @@ object Main extends SimpleSwingApplication {
     centerOnScreen()
   }
 
-  /** Отложенный запуск */
+  /** Отложенный запуск создания Java FX компонентов */
   Platform.runLater(new Runnable {
     override def run() = createJavaFxComponents()
   })
@@ -56,8 +60,7 @@ object Main extends SimpleSwingApplication {
   /** Создание Java FX компонентов */
   private def createJavaFxComponents() {
     val root = new VBox(20)
-    val opaque = true // Непрозрачный
-    val scene = new Scene(root, ModelWidth, ModelHeight, opaque)
+    val scene = new Scene(root, ModelWidth, ModelHeight, OpaqueModel)
     scene.setCamera(new PerspectiveCamera)
     jfx.setScene(scene)
 
