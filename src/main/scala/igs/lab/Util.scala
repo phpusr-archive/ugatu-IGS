@@ -14,6 +14,14 @@ import javafx.scene.paint.Color
  */
 object Util {
 
+  /** Заголовки осей координат */
+  object AxisTitle extends Enumeration {
+    type AxisTitle = String
+    val X = "X:"
+    val Y = "Y:"
+    val Z = "Z:"
+  }
+
   /** Генерирует случайны цвет */
   def getRandomColor = () => {
     def randomColorNumber = () => Random.nextInt(256)
