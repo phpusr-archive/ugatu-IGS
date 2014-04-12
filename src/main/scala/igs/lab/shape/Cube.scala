@@ -47,8 +47,8 @@ class Cube(size: Double, color: Color, shade: Double) extends RotateShape {
   /** Построение каркасной модели */
   def wireframeModel() {
     sidesList.foreach { el =>
-      el.setFill(Color.WHITE)
-      el.setStroke(Color.DARKGREY)
+      el.setFill(VoidsColor)
+      el.setStroke(FrameColor)
       el.setStrokeWidth(2)
     }
   }

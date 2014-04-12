@@ -2,6 +2,7 @@ package igs.lab.shape
 
 import javafx.scene.transform.Rotate
 import javafx.scene.Group
+import javafx.scene.paint.Color
 
 /**
  * @author phpusr
@@ -22,6 +23,13 @@ abstract class RotateShape extends Group {
 
   def changeColors()
 
+  // Каркасная модель
+
+  /** Цвет пустоты */
+  protected val VoidsColor = Color.WHITE
+  /** Цвет каркаса */
+  protected val FrameColor = Color.DARKGRAY
+  /** Построение каркасной модели */
   def wireframeModel()
 
 }
