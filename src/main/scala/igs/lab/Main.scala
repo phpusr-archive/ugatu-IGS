@@ -85,6 +85,12 @@ object Main extends SimpleSwingApplication {
     buttosnBox.setAlignment(Pos.CENTER_RIGHT)
     buttosnBox.setPadding(new Insets(20, 20, 20, 20))
 
+    val wireframeModelButton = new Button("Wireframe model")
+    buttosnBox.getChildren.add(wireframeModelButton)
+    wireframeModelButton.setOnAction(new EventHandler[ActionEvent] {
+      override def handle(event: ActionEvent) = wireframeModel.wireframeModel()
+    })
+
     val changeColorsButton = new Button("Change colors")
     buttosnBox.getChildren.add(changeColorsButton)
     changeColorsButton.setOnAction(new EventHandler[ActionEvent] {

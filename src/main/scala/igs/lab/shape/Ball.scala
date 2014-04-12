@@ -4,6 +4,7 @@ import javafx.scene.shape.{Circle, CircleBuilder}
 import javafx.scene.transform.Rotate
 import scala.collection.mutable.ListBuffer
 import igs.lab.Util
+import javafx.scene.paint.Color
 
 /**
  * @author phpusr
@@ -31,6 +32,14 @@ class Ball(size: Double) extends RotateShape {
     for (i <- 0 until 180) {
       if (i % 20 == 0) color = Util.getRandomColor()
       circleList(i).setFill(color)
+    }
+  }
+
+  /** Построение каркасной модели */
+  override def wireframeModel() {
+    for (i <- 0 until 180) {
+      if (i % 20 <= 2) circleList(i).setFill(Color.DARKGRAY)
+      else circleList(i).setFill(Color.WHITE)
     }
   }
 

@@ -22,4 +22,6 @@ abstract class RotateShape extends Group {
 
   def changeColors()
 
+  def wireframeModel()
+
 }
