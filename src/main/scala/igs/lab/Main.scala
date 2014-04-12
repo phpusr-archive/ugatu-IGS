@@ -6,7 +6,7 @@ import javafx.scene.layout.{HBox, StackPane, VBox}
 import javafx.scene.paint.Color
 import javafx.embed.swing.JFXPanel
 import scala.swing.{FlowPanel, MainFrame, SimpleSwingApplication}
-import javafx.scene.control.{Label, Slider, Button}
+import javafx.scene.control.{Slider, Label, Button}
 import javafx.beans.value.{ObservableValue, ChangeListener}
 import javafx.event.{ActionEvent, EventHandler}
 import javafx.geometry.{Insets, Pos}
@@ -92,13 +92,21 @@ object Main extends SimpleSwingApplication {
     buttosnBox.getChildren.add(changeObjectButton)
     changeObjectButton.setOnAction(new EventHandler[ActionEvent] {
       override def handle(event: ActionEvent) {
+        // Удаление панели со старой фигурой
         root.getChildren.remove(objectModelPanel)
+        // Смена фигуры
         objectModel match {
           case cube: Cube => objectModel = BallModel
           case ball: Ball => objectModel = CubeModel
         }
+        // Создание и добавление панели с новой фигурой
         objectModelPanel = getObjectModelPanel(ModelWidth, ModelHeight)
         root.getChildren.add(0, objectModelPanel)
+
+        // Сброс значений слайдеров
+        sliderBoxX.getChildren.get(1).asInstanceOf[Slider].setValue(0)
+        sliderBoxY.getChildren.get(1).asInstanceOf[Slider].setValue(0)
+        sliderBoxZ.getChildren.get(1).asInstanceOf[Slider].setValue(0)
       }
     })
 
@@ -139,8 +147,8 @@ object Main extends SimpleSwingApplication {
       override def changed(observableValue: ObservableValue[_ <: Number], oldValue: Number, newValue: Number) {
         val rotate = title match {
           case AxisTitle.X => objectModel.rx
-          case AxisTitle.Y => objectModel.rx
-          case AxisTitle.Z => objectModel.rx
+          case AxisTitle.Y => objectModel.ry
+          case AxisTitle.Z => objectModel.rz
         }
 
         rotate.setAngle(newValue.doubleValue)
