@@ -37,7 +37,7 @@ object Main extends SimpleSwingApplication {
   private val ColorNum = 240
   private val ColorModel = if (false) null else Color.rgb(ColorNum, ColorNum, ColorNum)
   private val ShadeModel = 0.5
-  private val wireframeModel = if (true) new Cube(SizeModel, ColorModel, ShadeModel) else new Ball(50)
+  private val objectModel = if (true) new Cube(SizeModel, ColorModel, ShadeModel) else new Ball(50)
   private val jfx = new JFXPanel
   /** Непрозрачность **/
   private val OpaqueModel = true
@@ -64,19 +64,19 @@ object Main extends SimpleSwingApplication {
     jfx.setScene(scene)
 
     // Каркасная модель
-    val wireframeModelPanel = getWireframeModelPanel(ModelWidth, ModelHeight)
-    root.getChildren.add(wireframeModelPanel)
+    val objectModelPanel = getObjectModelPanel(ModelWidth, ModelHeight)
+    root.getChildren.add(objectModelPanel)
 
     // Слайдеры
     val slidersBox = new HBox(20)
     root.getChildren.add(slidersBox)
     slidersBox.setAlignment(Pos.CENTER)
 
-    val sliderBoxX = createSliderBox("X:", wireframeModel.rx)
+    val sliderBoxX = createSliderBox("X:", objectModel.rx)
     slidersBox.getChildren.add(sliderBoxX)
-    val sliderBoxY = createSliderBox("Y:", wireframeModel.ry)
+    val sliderBoxY = createSliderBox("Y:", objectModel.ry)
     slidersBox.getChildren.add(sliderBoxY)
-    val sliderBoxZ = createSliderBox("Z:", wireframeModel.rz)
+    val sliderBoxZ = createSliderBox("Z:", objectModel.rz)
     slidersBox.getChildren.add(sliderBoxZ)
 
     // Кнопки
@@ -88,13 +88,13 @@ object Main extends SimpleSwingApplication {
     val wireframeModelButton = new Button("Wireframe model")
     buttosnBox.getChildren.add(wireframeModelButton)
     wireframeModelButton.setOnAction(new EventHandler[ActionEvent] {
-      override def handle(event: ActionEvent) = wireframeModel.wireframeModel()
+      override def handle(event: ActionEvent) = objectModel.wireframeModel()
     })
 
     val changeColorsButton = new Button("Change colors")
     buttosnBox.getChildren.add(changeColorsButton)
     changeColorsButton.setOnAction(new EventHandler[ActionEvent] {
-      override def handle(event: ActionEvent) = wireframeModel.changeColors()
+      override def handle(event: ActionEvent) = objectModel.changeColors()
     })
 
     val exitButton = new Button("Exit")
@@ -130,15 +130,15 @@ object Main extends SimpleSwingApplication {
   }
 
   /** Панель с каркасной моделью */
-  private def getWireframeModelPanel(width: Int, height: Int) = {
+  private def getObjectModelPanel(width: Int, height: Int) = {
     // Установка повортов по всем осям в 0
-    wireframeModel.rx.setAngle(0)
-    wireframeModel.ry.setAngle(0)
-    wireframeModel.rz.setAngle(0)
+    objectModel.rx.setAngle(0)
+    objectModel.ry.setAngle(0)
+    objectModel.rz.setAngle(0)
 
     val stackPane = new StackPane()
     stackPane.setPrefSize(width, height)
-    stackPane.getChildren.add(wireframeModel)
+    stackPane.getChildren.add(objectModel)
     
     stackPane
   }
