@@ -24,8 +24,10 @@ class Cross(startPoint: Point3D, size: Double, color: Color, shade: Double) exte
   def init() {
 
     /** Построение куба с параметрами по умолчанию */
-    val newCube = (x: Double, y: Double, z: Double) =>
-      new Cube(new Point3D(startPoint.getX + x, startPoint.getY + y, startPoint.getZ + z), partSize, color, shade)
+    val newCube = (x: Double, y: Double, z: Double) => {
+      val sPoint = new Point3D(startPoint.getX + x, startPoint.getY + y, startPoint.getZ + z)
+      new Cube(sPoint, partSize, color, shade)
+    }
 
     val topCube = newCube(partSize, 0, 0)
     val middleCube = newCube(partSize, partSize, 0)
