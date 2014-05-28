@@ -40,8 +40,9 @@ class Cube(startPoint: Point3D, size: Double, color: Color, shade: Double) exten
 
   /** Меняет цвета сторон объекта */
   def changeColors() {
+    val randomColor = Util.getRandomColor()
     sidesList.foreach { el =>
-      el.setFill(Util.getRandomColor())
+      el.setFill(randomColor)
       el.setStrokeWidth(0)
     }
   }
