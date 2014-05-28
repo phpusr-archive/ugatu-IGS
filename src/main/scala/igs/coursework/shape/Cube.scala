@@ -56,75 +56,52 @@ class Cube(startPoint: Point3D, size: Double, color: Color, shade: Double) exten
     }
   }
 
+  /** Прямоугольник с настройками по умолчанию */
+  private def defaultRectangleBuilder(translateX: Double, translateY: Double, translateZ: Double, colorIndex: Int) = {
+    val r = RectangleBuilder.create()
+    r.width(size)
+    r.height(size)
+    r.fill(colors(colorIndex))
+    r.translateX(startPoint.getX + translateX)
+    r.translateY(startPoint.getY + translateY)
+    r.translateZ(startPoint.getZ + translateZ)
+
+    r
+  }
+
   /** Инициализация объекта */
   private def init() {
     // back face
     var index = 0
-    val r1 = RectangleBuilder.create()
-    r1.width(size)
-    r1.height(size)
-    r1.fill(colors(index))
-    r1.translateX(startPoint.getX - 0.5 * size)
-    r1.translateY(startPoint.getY - 0.5 * size)
-    r1.translateZ(startPoint.getZ + 0.5 * size)
+    val r1 = defaultRectangleBuilder(-0.5 * size, - 0.5 * size, 0.5 * size, index)
 
     // bottom face
     index += 1
-    val r2 = RectangleBuilder.create()
-    r2.width(size)
-    r2.height(size)
-    r2.fill(colors(index))
-    r2.translateX(startPoint.getX -0.5 * size)
-    r2.translateY(startPoint.getY)
-    r2.translateZ(startPoint.getZ)
+    val r2 = defaultRectangleBuilder(-0.5 * size, 0, 0, index)
     r2.rotationAxis(Rotate.X_AXIS)
     r2.rotate(90)
 
     // right face
     index += 1
-    val r3 = RectangleBuilder.create()
-    r3.width(size)
-    r3.height(size)
-    r3.fill(colors(index))
-    r3.translateX(startPoint.getX - size)
-    r3.translateY(startPoint.getY - 0.5 * size)
-    r3.translateZ(startPoint.getZ)
+    val r3 = defaultRectangleBuilder(-size, -0.5 * size, 0, index)
     r3.rotationAxis(Rotate.Y_AXIS)
     r3.rotate(90)
 
     // left face
     index += 1
-    val r4 = RectangleBuilder.create()
-    r4.width(size)
-    r4.height(size)
-    r4.fill(colors(index))
-    r4.translateX(startPoint.getX)
-    r4.translateY(startPoint.getY - 0.5 * size)
-    r4.translateZ(startPoint.getZ)
+    val r4 = defaultRectangleBuilder(0, -0.5 * size, 0, index)
     r4.rotationAxis(Rotate.Y_AXIS)
     r4.rotate(90)
 
     // top face
     index += 1
-    val r5 = RectangleBuilder.create()
-    r5.width(size)
-    r5.height(size)
-    r5.fill(colors(index))
-    r5.translateX(startPoint.getX - 0.5 * size)
-    r5.translateY(startPoint.getY - size)
-    r5.translateZ(startPoint.getZ)
+    val r5 = defaultRectangleBuilder(-0.5 * size, -size, 0, index)
     r5.rotationAxis(Rotate.X_AXIS)
     r5.rotate(90)
 
     // front face
     index += 1
-    val r6 = RectangleBuilder.create()
-    r6.width(size)
-    r6.height(size)
-    r6.fill(colors(index))
-    r6.translateX(startPoint.getX - 0.5 * size)
-    r6.translateY(startPoint.getY - 0.5 * size)
-    r6.translateZ(startPoint.getZ - 0.5 * size)
+    val r6 = defaultRectangleBuilder(-0.5 * size, -0.5 * size, -0.5 * size, index)
 
     // Convert scala list => java list
     val rectangleBuilders = ListBuffer(r1, r2, r3, r4, r5, r6)
