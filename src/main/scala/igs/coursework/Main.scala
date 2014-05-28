@@ -11,9 +11,8 @@ import javafx.beans.value.{ObservableValue, ChangeListener}
 import javafx.event.{ActionEvent, EventHandler}
 import javafx.geometry.{Point3D, Insets, Pos}
 import java.awt.Dimension
-import igs.lab.shape.RotateShape
 import igs.lab.Util.AxisTitle
-import igs.coursework.shape.Cross
+import igs.coursework.shape.CrossCube
 
 /**
  * @author phpusr
@@ -22,7 +21,7 @@ import igs.coursework.shape.Cross
  */
 
 /**
- * TODO каркасная модель
+ * Каркасная модель
  */
 object Main extends SimpleSwingApplication {
   // Размеры формы
@@ -34,12 +33,12 @@ object Main extends SimpleSwingApplication {
   private val ModelHeight = 600
 
   /** Модель поверхности */
-  private val SizeModel = 100
+  private val SizeModel = 400
   private val ColorNum = 240
   private val ColorModel = if (false) null else Color.rgb(ColorNum, ColorNum, ColorNum)
   private val ShadeModel = 0.5
-  private val CubeModel = new Cross(new Point3D(0, 0, 0), SizeModel, ColorModel, ShadeModel)
-  private var objectModel: RotateShape = CubeModel
+  private val startPoint = new Point3D(-SizeModel/2, -SizeModel/2, -SizeModel/2)
+  private val objectModel = new CrossCube(startPoint, SizeModel, ColorModel, ShadeModel)
   private val jfx = new JFXPanel
   /** Непрозрачность **/
   private val OpaqueModel = true
@@ -66,7 +65,7 @@ object Main extends SimpleSwingApplication {
     jfx.setScene(scene)
 
     // Модель объекта
-    var objectModelPanel = getObjectModelPanel(ModelWidth, ModelHeight)
+    val objectModelPanel = getObjectModelPanel(ModelWidth, ModelHeight)
     root.getChildren.add(objectModelPanel)
 
     // Слайдеры
