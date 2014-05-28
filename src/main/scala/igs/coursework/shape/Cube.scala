@@ -73,41 +73,40 @@ class Cube(startPoint: Point3D, size: Double, color: Color, shade: Double) exten
   private def init() {
     // back face
     var index = 0
-    val r1 = defaultRectangleBuilder(-0.5 * size, - 0.5 * size, 0.5 * size, index)
+    val r1 = defaultRectangleBuilder(0, 0, 0, index)
 
     // bottom face
     index += 1
-    val r2 = defaultRectangleBuilder(-0.5 * size, 0, 0, index)
+    val r2 = defaultRectangleBuilder(0, size/2, size/2, index)
     r2.rotationAxis(Rotate.X_AXIS)
     r2.rotate(90)
 
     // right face
     index += 1
-    val r3 = defaultRectangleBuilder(-size, -0.5 * size, 0, index)
+    val r3 = defaultRectangleBuilder(size/2, 0, size/2, index)
     r3.rotationAxis(Rotate.Y_AXIS)
     r3.rotate(90)
 
     // left face
     index += 1
-    val r4 = defaultRectangleBuilder(0, -0.5 * size, 0, index)
+    val r4 = defaultRectangleBuilder(-size/2, 0, size/2, index)
     r4.rotationAxis(Rotate.Y_AXIS)
     r4.rotate(90)
 
     // top face
     index += 1
-    val r5 = defaultRectangleBuilder(-0.5 * size, -size, 0, index)
+    val r5 = defaultRectangleBuilder(0, -size/2, size/2, index)
     r5.rotationAxis(Rotate.X_AXIS)
     r5.rotate(90)
 
     // front face
     index += 1
-    val r6 = defaultRectangleBuilder(-0.5 * size, -0.5 * size, -0.5 * size, index)
+    val r6 = defaultRectangleBuilder(0, 0, size, index)
 
     // Convert scala list => java list
     val rectangleBuilders = ListBuffer(r1, r2, r3, r4, r5, r6)
     sidesList = rectangleBuilders.map(_.build())
     val rectagles = JavaConversions.bufferAsJavaList(sidesList)
-
     getChildren.addAll(rectagles)
   }
 
