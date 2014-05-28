@@ -2,7 +2,8 @@ package igs.coursework.shape
 
 import javafx.geometry.Point3D
 import javafx.scene.paint.Color
-import igs.lab.shape.RotateShape
+import scala.collection.mutable.ListBuffer
+import scala.collection.JavaConversions
 
 /**
  * @author phpusr
@@ -13,13 +14,7 @@ import igs.lab.shape.RotateShape
 /**
  * Кресто-Куб
  */
-class CrossCube(startPoint: Point3D, size: Double, color: Color, shade: Double) extends RotateShape {
-
-  /** Построение каркасной модели */
-  override def wireframeModel(): Unit = ???
-
-  /** Изменение цвета */
-  override def changeColors(): Unit = ???
+class CrossCube(startPoint: Point3D, size: Double, color: Color, shade: Double) extends ComplexShape {
 
   init()
 
@@ -27,7 +22,6 @@ class CrossCube(startPoint: Point3D, size: Double, color: Color, shade: Double) 
 
     /** Построение креста с параметрами по умолчанию */
     val newCross = (x: Double, y: Double, z: Double) => new Cross(new Point3D(x, y, z), size, color, shade)
-
 
     val frontCross = newCross(0, 0, 0)
     val middle = newCross(0, 0, size)
@@ -37,6 +31,7 @@ class CrossCube(startPoint: Point3D, size: Double, color: Color, shade: Double) 
     val leftCross = newCross(0, 0, 0)
     leftCross.ry.setAngle(-90)
 
-    getChildren.addAll(middle, backCross, rightCross, leftCross, frontCross)
+    partList = ListBuffer(middle, backCross, rightCross, leftCross, frontCross)
+    getChildren.addAll(JavaConversions.bufferAsJavaList(partList))
   }
 }

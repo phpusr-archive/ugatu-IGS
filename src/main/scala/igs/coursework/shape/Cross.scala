@@ -1,8 +1,9 @@
 package igs.coursework.shape
 
-import igs.lab.shape.RotateShape
 import javafx.scene.paint.Color
 import javafx.geometry.Point3D
+import scala.collection.mutable.ListBuffer
+import scala.collection.JavaConversions
 
 /**
  * @author phpusr
@@ -13,13 +14,7 @@ import javafx.geometry.Point3D
 /**
  * Крест
  */
-class Cross(startPoint: Point3D, size: Double, color: Color, shade: Double) extends RotateShape {
-
-  /** Построение каркасной модели */
-  override def wireframeModel(): Unit = ???
-
-  /** Изменение цвета */
-  override def changeColors(): Unit = ???
+class Cross(startPoint: Point3D, size: Double, color: Color, shade: Double) extends ComplexShape {
 
   init()
 
@@ -35,6 +30,8 @@ class Cross(startPoint: Point3D, size: Double, color: Color, shade: Double) exte
     val leftCube = newCube(0, size, 0)
     val rightCube = newCube(size * 2, size, 0)
 
-    getChildren.addAll(topCube, middleCube, bottomCube, leftCube, rightCube)
+    // Convert scala list => java list
+    partList = ListBuffer(topCube, middleCube, bottomCube, leftCube, rightCube)
+    getChildren.addAll(JavaConversions.bufferAsJavaList(partList))
   }
 }
