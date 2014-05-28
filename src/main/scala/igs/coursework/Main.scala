@@ -9,7 +9,7 @@ import scala.swing.{FlowPanel, MainFrame, SimpleSwingApplication}
 import javafx.scene.control.{Slider, Label, Button}
 import javafx.beans.value.{ObservableValue, ChangeListener}
 import javafx.event.{ActionEvent, EventHandler}
-import javafx.geometry.{Insets, Pos}
+import javafx.geometry.{Point3D, Insets, Pos}
 import java.awt.Dimension
 import igs.lab.shape.{RotateShape, Ball}
 import igs.lab.Util.AxisTitle
@@ -38,7 +38,7 @@ object Main extends SimpleSwingApplication {
   private val ColorNum = 240
   private val ColorModel = if (false) null else Color.rgb(ColorNum, ColorNum, ColorNum)
   private val ShadeModel = 0.5
-  private val CubeModel = new Cube(SizeModel, ColorModel, ShadeModel)
+  private val CubeModel = new Cube(new Point3D(0, 0, 0), SizeModel, ColorModel, ShadeModel)
   private val BallModel = new Ball(50)
   private var objectModel: RotateShape = CubeModel
   private val jfx = new JFXPanel

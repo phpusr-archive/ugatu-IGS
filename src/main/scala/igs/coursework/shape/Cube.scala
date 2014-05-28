@@ -7,6 +7,7 @@ import scala.collection.mutable.ListBuffer
 import scala.collection.JavaConversions
 import igs.lab.Util
 import igs.lab.shape.RotateShape
+import javafx.geometry.Point3D
 
 /**
  * @author phpusr
@@ -17,7 +18,7 @@ import igs.lab.shape.RotateShape
 /**
  * Куб
  */
-class Cube(size: Double, color: Color, shade: Double) extends RotateShape {
+class Cube(startPoint: Point3D, size: Double, color: Color, shade: Double) extends RotateShape {
 
   /** Кол-во сторон */
   private val sidesNumber = 6
@@ -62,9 +63,9 @@ class Cube(size: Double, color: Color, shade: Double) extends RotateShape {
     r1.width(size)
     r1.height(size)
     r1.fill(colors(index))
-    r1.translateX(-0.5*size)
-    r1.translateY(-0.5*size)
-    r1.translateZ(0.5*size)
+    r1.translateX(startPoint.getX - 0.5 * size)
+    r1.translateY(startPoint.getY - 0.5 * size)
+    r1.translateZ(startPoint.getZ + 0.5 * size)
 
     // bottom face
     index += 1
@@ -72,8 +73,9 @@ class Cube(size: Double, color: Color, shade: Double) extends RotateShape {
     r2.width(size)
     r2.height(size)
     r2.fill(colors(index))
-    r2.translateX(-0.5*size)
-    r2.translateY(0)
+    r2.translateX(startPoint.getX -0.5 * size)
+    r2.translateY(startPoint.getY)
+    r2.translateZ(startPoint.getZ)
     r2.rotationAxis(Rotate.X_AXIS)
     r2.rotate(90)
 
@@ -83,8 +85,9 @@ class Cube(size: Double, color: Color, shade: Double) extends RotateShape {
     r3.width(size)
     r3.height(size)
     r3.fill(colors(index))
-    r3.translateX(-1*size)
-    r3.translateY(-0.5*size)
+    r3.translateX(startPoint.getX - size)
+    r3.translateY(startPoint.getY - 0.5 * size)
+    r3.translateZ(startPoint.getZ)
     r3.rotationAxis(Rotate.Y_AXIS)
     r3.rotate(90)
 
@@ -94,8 +97,9 @@ class Cube(size: Double, color: Color, shade: Double) extends RotateShape {
     r4.width(size)
     r4.height(size)
     r4.fill(colors(index))
-    r4.translateX(0)
-    r4.translateY(-0.5*size)
+    r4.translateX(startPoint.getX)
+    r4.translateY(startPoint.getY - 0.5 * size)
+    r4.translateZ(startPoint.getZ)
     r4.rotationAxis(Rotate.Y_AXIS)
     r4.rotate(90)
 
@@ -105,20 +109,21 @@ class Cube(size: Double, color: Color, shade: Double) extends RotateShape {
     r5.width(size)
     r5.height(size)
     r5.fill(colors(index))
-    r5.translateX(-0.5*size)
-    r5.translateY(-1*size)
+    r5.translateX(startPoint.getX - 0.5 * size)
+    r5.translateY(startPoint.getY - size)
+    r5.translateZ(startPoint.getZ)
     r5.rotationAxis(Rotate.X_AXIS)
     r5.rotate(90)
 
-    // top face
+    // front face
     index += 1
     val r6 = RectangleBuilder.create()
     r6.width(size)
     r6.height(size)
     r6.fill(colors(index))
-    r6.translateX(-0.5*size)
-    r6.translateY(-0.5*size)
-    r6.translateZ(-0.5*size)
+    r6.translateX(startPoint.getX - 0.5 * size)
+    r6.translateY(startPoint.getY - 0.5 * size)
+    r6.translateZ(startPoint.getZ - 0.5 * size)
 
     // Convert scala list => java list
     val rectangleBuilders = ListBuffer(r1, r2, r3, r4, r5, r6)
