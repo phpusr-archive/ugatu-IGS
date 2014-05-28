@@ -16,17 +16,22 @@ import scala.collection.JavaConversions
  */
 class CrossCube(startPoint: Point3D, size: Double, color: Color, shade: Double) extends ComplexShape {
 
+  /** Размер частей */
+  private val partSize = size
+  /** Размер промежутков между частями */
+  private val splitSize = partSize / 3
+
   init()
 
   def init() {
 
     /** Построение креста с параметрами по умолчанию */
-    val newCross = (x: Double, y: Double, z: Double) => new Cross(new Point3D(x, y, z), size, color, shade)
+    val newCross = (x: Double, y: Double, z: Double) => new Cross(new Point3D(x, y, z), partSize, color, shade)
 
     val frontCross = newCross(0, 0, 0)
-    val middle = newCross(0, 0, size)
-    val backCross = newCross(0, 0, size * 2)
-    val rightCross = newCross(size * -2, 0, size * 2)
+    val middle = newCross(0, 0, splitSize)
+    val backCross = newCross(0, 0, splitSize * 2)
+    val rightCross = newCross(splitSize * -2, 0, splitSize * 2)
     rightCross.ry.setAngle(90)
     val leftCross = newCross(0, 0, 0)
     leftCross.ry.setAngle(-90)
