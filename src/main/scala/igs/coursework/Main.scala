@@ -11,9 +11,9 @@ import javafx.beans.value.{ObservableValue, ChangeListener}
 import javafx.event.{ActionEvent, EventHandler}
 import javafx.geometry.{Point3D, Insets, Pos}
 import java.awt.Dimension
-import igs.lab.shape.{RotateShape, Ball}
+import igs.lab.shape.RotateShape
 import igs.lab.Util.AxisTitle
-import igs.coursework.shape.Cube
+import igs.coursework.shape.Cross
 
 /**
  * @author phpusr
@@ -26,20 +26,19 @@ import igs.coursework.shape.Cube
  */
 object Main extends SimpleSwingApplication {
   // Размеры формы
-  private val FormWidth = 600
-  private val FormHeight = 400
+  private val FormWidth = 1000
+  private val FormHeight = 800
 
   // Размеры модели
-  private val ModelWidth = 400
-  private val ModelHeight = 300
+  private val ModelWidth = 100
+  private val ModelHeight = 600
 
   /** Модель поверхности */
   private val SizeModel = 100
   private val ColorNum = 240
   private val ColorModel = if (false) null else Color.rgb(ColorNum, ColorNum, ColorNum)
   private val ShadeModel = 0.5
-  private val CubeModel = new Cube(new Point3D(0, 0, 0), SizeModel, ColorModel, ShadeModel)
-  private val BallModel = new Ball(50)
+  private val CubeModel = new Cross(new Point3D(0, 0, 0), SizeModel, ColorModel, ShadeModel)
   private var objectModel: RotateShape = CubeModel
   private val jfx = new JFXPanel
   /** Непрозрачность **/
@@ -87,29 +86,6 @@ object Main extends SimpleSwingApplication {
     root.getChildren.add(buttosnBox)
     buttosnBox.setAlignment(Pos.CENTER_RIGHT)
     buttosnBox.setPadding(new Insets(20, 20, 20, 20))
-
-    //  Смена фигуры
-    val changeObjectButton = new Button("Change shape")
-    buttosnBox.getChildren.add(changeObjectButton)
-    changeObjectButton.setOnAction(new EventHandler[ActionEvent] {
-      override def handle(event: ActionEvent) {
-        // Удаление панели со старой фигурой
-        root.getChildren.remove(objectModelPanel)
-        // Смена фигуры
-        objectModel match {
-          case cube: Cube => objectModel = BallModel
-          case ball: Ball => objectModel = CubeModel
-        }
-        // Создание и добавление панели с новой фигурой
-        objectModelPanel = getObjectModelPanel(ModelWidth, ModelHeight)
-        root.getChildren.add(0, objectModelPanel)
-
-        // Сброс значений слайдеров
-        sliderBoxX.getChildren.get(1).asInstanceOf[Slider].setValue(0)
-        sliderBoxY.getChildren.get(1).asInstanceOf[Slider].setValue(0)
-        sliderBoxZ.getChildren.get(1).asInstanceOf[Slider].setValue(0)
-      }
-    })
 
     //  Построение каркасной модели
     val wireframeModelButton = new Button("Wireframe model")
