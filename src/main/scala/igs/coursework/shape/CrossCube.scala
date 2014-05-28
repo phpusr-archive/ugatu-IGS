@@ -39,16 +39,16 @@ class CrossCube(startPoint: Point3D, size: Double, color: Color, shade: Double) 
     val frontCross = newCross(sx, sy, sz)
     val middle = newCross(sx, sy, sz + indentSize)
     val backCross = newCross(sx, sy, sz + indentSize * 2)
-    val rightCross = newCross(-sz + indentSize * -2, sy, sx + indentSize * 2)
+    val rightCross = newCross(-sz + indentSize * -3, sy, sx + indentSize * 2)
     rightCross.ry.setAngle(90)
-    val leftCross = newCross(sz, sy, -sx)
+    val leftCross = newCross(sz, sy, -sx - indentSize)
     leftCross.ry.setAngle(-90)
 
     partList = ListBuffer(middle, backCross, rightCross, leftCross, frontCross)
     getChildren.addAll(JavaConversions.bufferAsJavaList(partList))
 
     /** Точка вращения */
-    val pivot = new Cube(startPoint, 5, new Color(1, 0, 0, 1), shade)
+    val pivot = new Cube(new Point3D(0, 0, 0), 5, new Color(1, 0, 0, 1), shade)
     getChildren.add(pivot)
   }
 }
