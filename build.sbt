@@ -2,7 +2,7 @@ import scala.Some
 
 name := "IGS"
 
-val runClass = "igs.lab.Main"
+val runClass = "igs.coursework.Main"
 
 scalaVersion := "2.10.3"
 
