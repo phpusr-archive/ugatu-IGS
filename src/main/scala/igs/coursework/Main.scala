@@ -25,15 +25,15 @@ import igs.coursework.shape.CrossCube
  */
 object Main extends SimpleSwingApplication {
   // Размеры формы
-  private val FormWidth = 1000
-  private val FormHeight = 800
+  private val FormWidth = 800
+  private val FormHeight = 600
 
   // Размеры модели
-  private val ModelWidth = 100
-  private val ModelHeight = 600
+  private val ModelWidth = FormWidth
+  private val ModelHeight = FormHeight
 
   /** Модель поверхности */
-  private val SizeModel = 400
+  private val SizeModel = 300
   private val ColorNum = 240
   private val ColorModel = if (false) null else Color.rgb(ColorNum, ColorNum, ColorNum)
   private val ShadeModel = 0.5
