@@ -45,6 +45,7 @@ object Main extends SimpleSwingApplication {
 
   /** Создание главной формы */
   def top = new MainFrame {
+    title = "Wareframe model"
     contents = new FlowPanel {
       peer.add(jfx)
       jfx.setPreferredSize(new Dimension(FormWidth, FormHeight))
